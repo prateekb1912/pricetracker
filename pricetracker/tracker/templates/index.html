@@ -7,28 +7,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <title>Signin Template · Bootstrap</title>
+    <title>amazon.in Price Tracker | Track your favorite products</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/signin.css' %}"rel="stylesheet">
 </head>
 
 <body class="text-center">
-    <form class="form-signin">
+    <form class="form-signin" action="" method="post">
+        {% csrf_token %}
         <h1 class="h3 mb-3 font-weight-normal">Enter the Product URL</h1>
         <label for="inputURL" class="sr-only">Email address</label>
-        <input type="url" id="inputURL" class="form-control" placeholder="amazon.in URL" required autofocus>
+        <input type="url" name="inputURL" id="inputURL" class="form-control" placeholder="https://amazon.in/..." required autofocus>
         <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
     </form>
 </body>
 

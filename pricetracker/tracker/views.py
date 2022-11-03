@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
 
 import requests
 import json
@@ -42,6 +43,10 @@ def get_url(request):
 
     return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
 
-
+@require_http_methods(["GET", "POST"])
 def index(request):
+    print(request.method == 'POST')
+    if request.method == 'POST':
+        print(request.GET)
+
     return render(request, 'index.html')
