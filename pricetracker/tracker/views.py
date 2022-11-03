@@ -40,5 +40,5 @@ def get_url(request):
 
     data = get_product_details(url)
 
-    return HttpResponse(json.dumps(data))
+    return HttpResponse(json.dumps(data, indent=4),content_type='application/json')
 
