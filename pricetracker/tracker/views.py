@@ -40,5 +40,8 @@ def get_url(request):
 
     data = get_product_details(url)
 
-    return HttpResponse(json.dumps(data, indent=4),content_type='application/json')
+    return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
 
+
+def index(request):
+    return render(request, 'index.html')
