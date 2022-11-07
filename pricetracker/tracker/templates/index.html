@@ -22,7 +22,8 @@
         {% csrf_token %}
         <h1 class="h3 mb-3 font-weight-normal">Enter the Product URL</h1>
         <label for="inputURL" class="sr-only">Email address</label>
-        <input type="url" name="inputURL" id="inputURL" class="form-control" placeholder="https://amazon.in/..." required autofocus>
+        <input type="url" name="inputURL" id="inputURL" autocomplete="false"
+        class="form-control" placeholder="https://amazon.in/..." required autofocus>
         <br>
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
     </form>

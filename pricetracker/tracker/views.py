@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.decorators.http import require_http_methods
 
 import requests
 import json
+import time
 from bs4 import BeautifulSoup
 
 # Create your views here.
@@ -12,6 +12,8 @@ def get_product_details(url):
          'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
     }
     resp = requests.get(url, headers=headers)
+    time.sleep(2)
+
     page = resp.text
 
     soup = BeautifulSoup(page, 'html.parser')
@@ -40,13 +42,6 @@ def get_product_details(url):
         return {
             'error': 'Invalid URL!'
         }
-
-def get_url(request):
-    url = 'https://www.amazon.in/dp/B09NVPSCQT'
-
-    data = get_product_details(url)
-
-    return HttpResponse(json.dumps(data, indent=4), content_type='application/json')
 
 def index(request):
     if request.method == 'POST':
