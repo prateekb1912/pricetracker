@@ -4,7 +4,10 @@ from django.http import HttpResponse
 import requests
 import json
 import time
+
 from bs4 import BeautifulSoup
+
+from .models import Product
 
 # Create your views here.
 def get_product_details(url):
@@ -53,3 +56,7 @@ def index(request):
 
 
     return render(request, 'index.html')
+
+
+def list_all_products(request):
+    return HttpResponse(Product.objects.all())
