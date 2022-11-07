@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p0z@3*12mc_%l!b5f2y6)ge)iy9-f2su813w#w2mzpra+0h2el
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'pricetracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pricetracker',
+        'USER': 'patrick35',
+        'PASSWORD': '12345',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
