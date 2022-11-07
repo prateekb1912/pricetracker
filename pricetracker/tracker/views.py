@@ -52,7 +52,7 @@ def index(request):
         url = post_data['inputURL']
 
         product_data = get_product_details(url)
-        return HttpResponse(json.dumps(product_data, indent=4))
+        return render(request, 'product_focus.html')
 
 
     return render(request, 'index.html')
