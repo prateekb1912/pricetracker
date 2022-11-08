@@ -35,7 +35,7 @@ def get_product_details(url):
         curr_price_decimal = float(current_price[1:])
         logger.warning(f"Available @ {current_price}")
 
-        mrp = soup.find('span', attrs={'class': 'a-text-price'}).find('span', attrs={'class':'a-offscreen'}).text
+        mrp = soup.find('span', attrs={'class': 'basisPrice'}).find('span', attrs={'class':'a-offscreen'}).text
         mrp = current_price.replace(',', '')
         mrp_decimal = float(mrp[1:])
         logger.warning(f"MRP: {mrp}")
@@ -50,9 +50,9 @@ def get_product_details(url):
         return {
             'asin': asin,
             'title': title,
-            'current_price': curr_price_decimal,
-            'list_price': mrp_decimal,
-            'image_url': landingImg
+            'currentPrice': curr_price_decimal,
+            'listPrice': mrp_decimal,
+            'imageURL': landingImg
             }
 
     except Exception:
@@ -68,10 +68,16 @@ def index(request):
         logger.warning("HHDJHJD")
 
         product_data = get_product_details(url)
+        logger.warning(product_data)
 
-        return HttpResponse(json.dumps(product_data))
+        # return HttpResponse(json.dumps(product_data))
 
-        # return render(request, 'product_focus.html')
+        return render(request, 'product_focus.html', context = {
+            'title': product_data['title'],
+            'listPrice': product_data['listPrice'],
+            'currentPrice': product_data['currentPrice'],
+            'imageURL': product_data['imageURL']
+            })
 
 
     return render(request, 'index.html')

@@ -35,13 +35,13 @@
 
 <body>
 
-  <h2>Round Card</h2>
+  <h2> {{ title }} </h2>
 
   <div class="card">
-    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" style="width:100%">
+    <img src={{ imageURL }}  alt="Avatar" style="width:100%">
     <div class="container">
-      <h4><b>Jane Doe</b></h4>
-      <p>Interior Designer</p>
+      <span> <b> {{ currentPrice }} </b> </span>
+      <span> <small> {{ listPrice }} </small> </span>
     </div>
   </div>
 </body>
