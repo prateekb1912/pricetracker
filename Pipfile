@@ -8,6 +8,7 @@ django = "*"
 requests = "*"
 bs4 = "*"
 psycopg2 = "*"
+pillow = "*"
 
 [dev-packages]
 
