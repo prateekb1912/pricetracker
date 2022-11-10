@@ -36,7 +36,7 @@ def get_product_details(url):
         logger.warning(f"Available @ {current_price}")
 
         mrp = soup.find('span', attrs={'class': 'basisPrice'}).find('span', attrs={'class':'a-offscreen'}).text
-        mrp = current_price.replace(',', '')
+        mrp = mrp.replace(',', '')
         mrp_decimal = float(mrp[1:])
         logger.warning(f"MRP: {mrp}")
 
