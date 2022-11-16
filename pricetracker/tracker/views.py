@@ -13,7 +13,7 @@ from .models import Product
 logger = logging.getLogger(__name__)
 
 # Create your views here.
-def get_product_details(url):
+def get_product_details(request, url):
     headers = {
          'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
     }
@@ -47,13 +47,12 @@ def get_product_details(url):
         landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
         logger.warning(f"Image has been scraped: {landingImg}")
 
-        return {
-            'asin': asin,
+        return render(request, 'product_focus.html', context = {
             'title': title,
-            'currentPrice': curr_price_decimal,
             'listPrice': mrp_decimal,
+            'currentPrice': curr_price_decimal,
             'imageURL': landingImg
-            }
+            })
 
     except Exception:
         return {
@@ -64,21 +63,8 @@ def index(request):
     if request.method == 'POST':
         post_data = request.POST
         url = post_data['inputURL']
-
-        logger.warning("HHDJHJD")
-
-        product_data = get_product_details(url)
-        logger.warning(product_data)
-
-        # return HttpResponse(json.dumps(product_data))
-
-        return render(request, 'product_focus.html', context = {
-            'title': product_data['title'],
-            'listPrice': product_data['listPrice'],
-            'currentPrice': product_data['currentPrice'],
-            'imageURL': product_data['imageURL']
-            })
-
+        
+        get_product_details(request, url)
 
     return render(request, 'index.html')
 
