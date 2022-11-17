@@ -47,12 +47,12 @@ def get_product_details(request, url):
         landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
         logger.warning(f"Image has been scraped: {landingImg}")
 
-        return render(request, 'product_focus.html', context = {
+        return {
             'title': title,
             'listPrice': mrp_decimal,
             'currentPrice': curr_price_decimal,
             'imageURL': landingImg
-            })
+            }
 
     except Exception:
         return {
@@ -64,7 +64,8 @@ def index(request):
         post_data = request.POST
         url = post_data['inputURL']
         
-        get_product_details(request, url)
+        product_data = get_product_details(request, url)
+        return render(request, 'product_focus.html', context=product_data)
 
     return render(request, 'index.html')
 
