@@ -105,10 +105,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pricetracker',
-        'USER': 'patrick35',
-        'PASSWORD': '12345',
+        'USER': 'patrick',
+        'PASSWORD': 'patrick19135',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
