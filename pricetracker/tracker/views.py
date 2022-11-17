@@ -14,7 +14,9 @@ def index(request):
         url = post_data['inputURL']
         
         product_data = get_product_details(url)
-        return render(request, 'product_focus.html', context=product_data)
+        
+        new_product = Product(**product_data)
+        new_product.save();
 
     return render(request, 'index.html')
 

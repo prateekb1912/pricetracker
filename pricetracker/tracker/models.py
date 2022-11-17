@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Product(models.Model):
-    asin = models.CharField(max_length=20, unique = True, default='ASIN000')
+    asin = models.CharField(max_length=20, unique = True, primary_key=True, default='ASIN000')
     title = models.CharField(max_length=256)
     url = models.URLField(max_length=512)
     product_image = models.ImageField(upload_to='imgs/', null=True)

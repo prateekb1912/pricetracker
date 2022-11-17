@@ -40,10 +40,12 @@ def get_product_details(url):
         logger.warning(f"Image has been scraped: {landingImg}")
 
         return {
+            'asin': asin,
             'title': title,
-            'listPrice': mrp_decimal,
-            'currentPrice': curr_price_decimal,
-            'imageURL': landingImg
+            'url': url,
+            'list_price': mrp_decimal,
+            'sell_price': curr_price_decimal,
+            'product_image': landingImg
             }
 
     except Exception:
