@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.core.exceptions import ObjectDoesNotExist
 import logging
 
 from .models import Product
@@ -20,6 +20,15 @@ def index(request):
 
     return render(request, 'index.html')
 
+
+def view_product(request, asin):
+    try:
+        product = Product.objects.filter(title__contains="IBF")
+        logger.warning(product)
+        return HttpResponse(product)
+
+    except ObjectDoesNotExist:
+        return HttpResponseBadRequest({'error': 'Wrong ASIN'})
 
 def list_all_products(request):
     return HttpResponse(Product.objects.all())
