@@ -23,12 +23,11 @@ def index(request):
 
 def view_product(request, asin):
     try:
-        product = Product.objects.filter(title__contains="IBF")
-        logger.warning(product)
+        product = Product.objects.filter(asin__contains=asin)
         return HttpResponse(product)
 
     except ObjectDoesNotExist:
         return HttpResponseBadRequest({'error': 'Wrong ASIN'})
 
 def list_all_products(request):
-    return HttpResponse(Product.objects.all())
+    return HttpResponse(Product.objects.order_by('-date_added'))
