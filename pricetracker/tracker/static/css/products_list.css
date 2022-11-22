@@ -1,0 +1,13 @@
+.item-list {
+    border: 1px solid black;
+    padding: 1%;
+}
+
+.item {
+    border: 1px solid green;
+    margin-bottom: 2%;
+    padding: inherit;
+    list-style: none;
+    width: 50%;
+    text-overflow: ellipsis;
+}

@@ -30,4 +30,6 @@ def view_product(request, asin):
         return HttpResponseBadRequest({'error': 'Wrong ASIN'})
 
 def list_all_products(request):
-    return HttpResponse(Product.objects.order_by('-date_added'))
+    products_list = Product.objects.order_by('-date_added')
+    
+    return render(request, template_name='products_list.html', context={'list':products_list})
