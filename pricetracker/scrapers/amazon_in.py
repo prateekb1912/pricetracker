@@ -34,6 +34,7 @@ def get_product_details(url):
 
 
         asin = soup.find('table', attrs={'id': 'productDetails_detailBullets_sections1'}).find('td', attrs={'class': 'prodDetAttrValue'}).text
+        asin = asin.strip()
         logger.warning(f"ASIN: {asin}")
 
         landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
