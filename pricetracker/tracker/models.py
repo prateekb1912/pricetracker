@@ -11,4 +11,4 @@ class Product(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.title} @ {self.sell_price}'
+        return f'{self.title} available currently @ {self.sell_price} added on {self.timestamp} '

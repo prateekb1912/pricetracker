@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.core.exceptions import ObjectDoesNotExist
 import logging
@@ -21,7 +21,7 @@ def index(request):
         new_product = Product(**product_data)
         new_product.save();
 
-        return render(request, 'products_list.html')
+        return redirect('/products')
 
     return render(request, 'index.html')
 
@@ -35,6 +35,6 @@ def view_product(request, asin):
         return HttpResponseBadRequest({'error': 'Wrong ASIN'})
 
 def list_all_products(request):
-    products_list = Product.objects.order_by('-date_added')
+    products_list = Product.objects.order_by('-timestamp')
     
     return render(request, template_name='products_list.html', context={'list':products_list})
