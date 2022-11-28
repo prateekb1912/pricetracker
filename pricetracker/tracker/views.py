@@ -15,8 +15,13 @@ def index(request):
         
         product_data = get_product_details(url)
         
+        if 'error' in product_data:
+            return HttpResponseBadRequest('Error parsing product site')
+
         new_product = Product(**product_data)
         new_product.save();
+
+        return render(request, 'products_list.html')
 
     return render(request, 'index.html')
 
