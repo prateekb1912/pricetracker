@@ -15,7 +15,7 @@
 <body>
     <div class="list-group list-group-flush d-flex flex-column">
     {% for product in list %}
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start"> 
+        <a href="/product/{{ product.asin }}" class="list-group-item list-group-item-action flex-column align-items-start"> 
             <div class="align-middle">
                 <img src="{{product.product_image}}" height="200" width="200"  class="img-thumbnail img-fluid mx-auto d-block">
             </div>
