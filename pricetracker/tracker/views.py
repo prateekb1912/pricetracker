@@ -8,18 +8,19 @@ from scrapers.amazon_in import get_product_details
 
 logger = logging.getLogger(__name__)
 
+
 def index(request):
     if request.method == 'POST':
         post_data = request.POST
         url = post_data['inputURL']
-        
+
         product_data = get_product_details(url)
-        
+
         if 'error' in product_data:
             return HttpResponseBadRequest('Error parsing product site')
 
         new_product = Product(**product_data)
-        new_product.save();
+        new_product.save()
 
         return redirect('/products')
 
@@ -34,7 +35,8 @@ def view_product(request, asin):
     except ObjectDoesNotExist:
         return HttpResponseBadRequest({'error': 'Wrong ASIN'})
 
+
 def list_all_products(request):
     products_list = Product.objects.order_by('-timestamp')
-    
-    return render(request, template_name='products_list.html', context={'list':products_list})
+
+    return render(request, template_name='products_list.html', context={'list': products_list})
