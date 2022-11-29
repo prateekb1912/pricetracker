@@ -1,6 +1,7 @@
-{% load static %} 
+{% load static %}
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,19 +13,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 </head>
+
 <body>
-    <div class="list-group list-group-flush d-flex flex-column">
     {% for product in list %}
-        <a href="/product/{{ product.asin }}" class="list-group-item list-group-item-action flex-column align-items-start"> 
+        <div class="list-group list-group-flush d-flex flex-column" >
             <div class="align-middle">
-                <img src="{{product.product_image}}" height="200" width="200"  class="img-thumbnail img-fluid mx-auto d-block">
-            </div>
-            <div class="align-middle">
+                <a href="/product/{{ product.asin }}"
+                    class="list-group-item list-group-item-action flex-column align-items-start">
+                    <img src="{{product.product_image}}" height="200" width="200"
+                        class="img-thumbnail img-fluid mx-auto d-block">
+                </a>
                 <h5 class="mb-1"> {{product.title}} </h5>
                 <small> Rs. {{product.list_price}} </small>
             </div>
-        </a>
+            <input class="btn-danger" type="submit" value="Delete" />
+        </div>
     {% endfor %}
-    </ul>
 </body>
+
 </html>
