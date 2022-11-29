@@ -40,3 +40,7 @@ def list_all_products(request):
     products_list = Product.objects.order_by('-timestamp')
 
     return render(request, template_name='products_list.html', context={'list': products_list})
+
+
+def delete_product(request, asin):
+    return render(request, 'delete_product.html')
