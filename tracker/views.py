@@ -43,4 +43,9 @@ def list_all_products(request):
 
 
 def delete_product(request, asin):
+    product = Product.objects.get(asin=asin)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('product_list')
+
     return render(request, 'delete_product.html')

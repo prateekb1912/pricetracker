@@ -1,15 +1,23 @@
-{% block content%}
-<main class="delete-item layout">
-    <div class="container">
-        <form class="form" action="#" method="post">
-            {% csrf_token %}
-            <div class="form__group">
-                <p>Are you sure you want to delete the product?</p>
-            </div>
-            <div class="for__group">
-                <input class="btn btn--main" type="submit" value="Confirm" />
-            </div>
-        </form>
-    </div>
-</main>
-{%endblock%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Product</title>
+</head>
+<body>
+    <main class="delete-item layout">
+        <div class="container">
+            <form class="form" action="#" method="post">
+                {% csrf_token %}
+                <div class="form__group">
+                    <p>Are you sure you want to delete the product?</p>
+                </div>
+                <div class="for__group">
+                    <input class="btn btn--main" type="submit" value="Confirm" />
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
