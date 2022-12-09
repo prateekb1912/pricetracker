@@ -1,8 +1,8 @@
-import requests
+import logging
 import time
 
+import requests
 from bs4 import BeautifulSoup
-import logging
 
 logger = logging.getLogger(__name__)
 

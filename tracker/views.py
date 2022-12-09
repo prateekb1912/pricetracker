@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.core.exceptions import ObjectDoesNotExist
 import logging
 
-from .models import Product
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import redirect, render
+
 from scrapers.amazon_in import get_product_details
+
+from .models import Product
 
 logger = logging.getLogger(__name__)
 
