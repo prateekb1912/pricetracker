@@ -22,12 +22,25 @@ def get_product_details(url):
         title = soup.find('span', attrs={'id':'productTitle'}).text.strip()
         logger.warning(f"Product: {title}")
         
-        current_price = soup.find('span', attrs={'class': 'priceToPay'}).find('span', attrs={'class':'a-offscreen'}).text
+
+        current_price = soup.find('span', attrs={'class': 'priceToPay'})
+
+        if current_price:
+            current_price.select('.a-offscreen').text
+        else :
+            current_price = soup.select('#price')[0].text
+
         current_price = current_price.replace(',', '')
         curr_price_decimal = float(current_price[1:])
         logger.warning(f"Available @ {current_price}")
 
-        mrp = soup.find('span', attrs={'class': 'basisPrice'}).find('span', attrs={'class':'a-offscreen'}).text
+        mrp = soup.find('span', attrs={'class': 'basisPrice'})
+
+        if mrp:
+            mrp = mrp.find('span', attrs={'class':'a-offscreen'}).text
+        else:
+            mrp = soup.find('span', attrs={'id': 'listPrice'}).text
+
         mrp = mrp.replace(',', '')
         mrp_decimal = float(mrp[1:])
         logger.warning(f"MRP: {mrp}")
@@ -49,7 +62,8 @@ def get_product_details(url):
             'product_image': landingImg
             }
 
-    except Exception:
+    except Exception as e:
+        logger.warning(e)
         return {
             'error': 'Invalid URL!'
         }
