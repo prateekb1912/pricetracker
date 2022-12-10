@@ -13,7 +13,7 @@ def get_product_details(url):
     
     try:
         resp = requests.get(url, headers=headers)
-        time.sleep(2)
+        time.sleep(5)
 
         page = resp.text
 
@@ -34,20 +34,14 @@ def get_product_details(url):
         curr_price_decimal = float(current_price[1:])
         logger.warning(f"Available @ {current_price}")
 
-        mrp = soup.find('span', attrs={'class': 'basisPrice'})
-
-        if mrp:
-            mrp = mrp.find('span', attrs={'class':'a-offscreen'}).text
+        asin = soup.find('table', attrs={'id': 'productDetails_detailBullets_sections1'})
+        if asin:
+            asin = asin.find('td', attrs={'class': 'prodDetAttrValue'}).text.strip()
         else:
-            mrp = soup.find('span', attrs={'id': 'listPrice'}).text
+            asin = soup.select('#rpi-attribute-book_details-isbn10')[0]
+            asin = asin.select('span')[-1].text.strip()
+            logger.warning(asin)
 
-        mrp = mrp.replace(',', '')
-        mrp_decimal = float(mrp[1:])
-        logger.warning(f"MRP: {mrp}")
-
-
-        asin = soup.find('table', attrs={'id': 'productDetails_detailBullets_sections1'}).find('td', attrs={'class': 'prodDetAttrValue'}).text
-        asin = asin.strip()
         logger.warning(f"ASIN: {asin}")
 
         landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
@@ -57,7 +51,6 @@ def get_product_details(url):
             'asin': asin,
             'title': title,
             'url': url,
-            'list_price': mrp_decimal,
             'sell_price': curr_price_decimal,
             'product_image': landingImg
             }
