@@ -1,4 +1,5 @@
 import logging
+import re
 import time
 
 import requests
@@ -13,7 +14,7 @@ def get_product_details(url):
     
     try:
         resp = requests.get(url, headers=headers)
-        time.sleep(5)
+        time.sleep(2)
 
         page = resp.text
 
@@ -45,6 +46,8 @@ def get_product_details(url):
         logger.warning(f"ASIN: {asin}")
 
         landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
+        landingImg = re.sub("QL40_ML2_", "", landingImg)
+
         logger.warning(f"Image has been scraped: {landingImg}")
 
         return {
