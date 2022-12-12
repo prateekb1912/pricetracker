@@ -3,6 +3,7 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
 from scrapers.amazon_in import get_product_details
 
@@ -19,8 +20,8 @@ def index(request):
         product_data = get_product_details(url)
 
         if 'error' in product_data:
-            return HttpResponseBadRequest('Error parsing product site')
 
+            return HttpResponseBadRequest('Error parsing product site')
         new_product = Product(**product_data)
         new_product.save()
 
@@ -39,7 +40,7 @@ def view_product(request, asin):
 
 
 def list_all_products(request):
-    products_list = Product.objects.order_by('-timestamp')
+    products_list = Product.objects.order_by('-added_at')
 
     return render(request, template_name='products_list.html', context={'list': products_list})
 
@@ -51,15 +52,17 @@ def delete_product(request, asin):
 
     return render(request, 'delete_product.html')
 
+@csrf_exempt
 def update_product(request, asin):
     product = Product.objects.get(asin=asin)
-
+    logger.warning(product)
     if request.method == 'POST':
+        logger.warning(request.POST)
         product.title = request.POST.get('title')
         product.sell_price = request.POST.get('sell_price')
-        product.product_image = request.POST.get('product_image')
 
         product.save()
-        return redirect('product_list')
+        
+        return HttpResponse(product)
     
-    return "Not Allowed"
+    return HttpResponseBadRequest("Not Allowed")

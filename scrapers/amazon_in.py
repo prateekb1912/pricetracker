@@ -27,7 +27,7 @@ def get_product_details(url):
         current_price = soup.find('span', attrs={'class': 'priceToPay'})
 
         if current_price:
-            current_price.select('.a-offscreen').text
+            current_price.find('.a-offscreen').text
         else :
             current_price = soup.select('#price')[0].text
 
