@@ -43,7 +43,6 @@ def list_all_products(request):
 
     return render(request, template_name='products_list.html', context={'list': products_list})
 
-
 def delete_product(request, asin):
     product = Product.objects.get(asin=asin)
     if request.method == 'POST':
@@ -51,3 +50,16 @@ def delete_product(request, asin):
         return redirect('product_list')
 
     return render(request, 'delete_product.html')
+
+def update_product(request, asin):
+    product = Product.objects.get(asin=asin)
+
+    if request.method == 'POST':
+        product.title = request.POST.get('title')
+        product.sell_price = request.POST.get('sell_price')
+        product.product_image = request.POST.get('product_image')
+
+        product.save()
+        return redirect('product_list')
+    
+    return "Not Allowed"
