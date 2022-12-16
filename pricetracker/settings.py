@@ -137,11 +137,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Calcutta'
-
 USE_I18N = True
 
 USE_TZ = True
+
+TIME_ZONE = 'Asia/Calcutta'
+
 
 DATETIME_INPUT_FORMATS = [
     '%Y-%m-%d %H:%M:%S',     # '2006-10-25 14:30:59'
@@ -161,3 +162,8 @@ STATIC_ROOT = BASE_DIR / 'tracker/assets'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CELERY_BROKER_URL = 'amqp://localhost:5672'
+CELERY_TIMEZONE = 'Asia/Calcutta'
+CELERY_BEAT_SCHEDULE = {}
