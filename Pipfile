@@ -9,6 +9,7 @@ requests = "*"
 bs4 = "*"
 psycopg2 = "*"
 pillow = "*"
+celery = "*"
 
 [dev-packages]
 autopep8 = "*"
