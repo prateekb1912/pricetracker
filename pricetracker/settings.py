@@ -169,7 +169,7 @@ CELERY_TIMEZONE = 'Asia/Calcutta'
 CELERY_BEAT_SCHEDULE = {
     'send-summary-every-minute': {
         'task': 'summary',
-        'schedule': 60.0,
+        'schedule': 10.0,
 #       'args': 'if any'
     }
 }

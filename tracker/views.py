@@ -55,9 +55,7 @@ def delete_product(request, asin):
 @csrf_exempt
 def update_product(request, asin):
     product = Product.objects.get(asin=asin)
-    logger.warning(product)
     if request.method == 'POST':
-        logger.warning(request.POST)
         product.title = request.POST.get('title')
         product.sell_price = request.POST.get('sell_price')
 
