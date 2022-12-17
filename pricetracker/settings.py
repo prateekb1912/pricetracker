@@ -165,11 +165,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CELERY_BROKER_URL = 'amqp://localhost:5672'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Calcutta'
 CELERY_BEAT_SCHEDULE = {
-    'send-summary-every-minute': {
-        'task': 'summary',
-        'schedule': 10.0,
-#       'args': 'if any'
+    'print-message-every-minute': {
+        'task': 'print_msg',
+        'schedule': 60.0,
+    },
+    'check-time-every-30-seconds': {
+        'task': 'current_time',
+        'schedule': 30.0,
     }
 }

@@ -1,14 +1,11 @@
-import os 
-from celery import Celery
+from celery import shared_task
+from datetime import datetime
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pricetracker.settings')
+@shared_task(name='print_msg')
+def print_msg():
+    print("Celery Beat is working!")
 
-app = Celery('pricetracker')
-app.config_from_object('django.conf:settings', namespace="CELERY")
-
-app.autodiscover_tasks()
-
-
-@app.task(bind=True)
-def debug_task(self):
-    print(f"Request: {self.request!r}")
+@shared_task(name='current_time')
+def print_time():
+    now = datetime.now()
+    print(f"Current time: {now.strftime('%H:%M:%S')}")
