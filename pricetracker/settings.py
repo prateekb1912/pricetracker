@@ -169,6 +169,8 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Calcutta'
+
+from celery.schedules import crontab
 CELERY_BEAT_SCHEDULE = {
     'print-message-every-minute': {
         'task': 'print_msg',
@@ -176,6 +178,6 @@ CELERY_BEAT_SCHEDULE = {
     },
     'update-product-info-db-everyday': {
         'task': 'update_products',
-        'schedule': 60.0 * 60.0 * 24
+        'schedule': crontab(minute=0, hour=0) # Executes daily at midnight
     }
 }
