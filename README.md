@@ -9,9 +9,13 @@ The user just needs to copy the product URL from amazon page and paste into our 
 - **Celery** - Task Queue to schedule tasks concerning updation of products. Uses **RabbitMQ** as the message broker
 - **HTML, CSS, and Bootstrap** - Constitute the front-end portion for the project (not really a front-end guy )
 
-![index page](./UI_IMAGES/index.png)
-![products list page](./UI_IMAGES/products.png)
+| ![index page](./UI_IMAGES/index.png)
+| :-:
+| **Home Page**
 
+|![products list page](./UI_IMAGES/products.png)
+| :-:
+| **Products List**
 
 # Work in Progress
 These features are either being currently implemented or are considered to be implemented some time on :
