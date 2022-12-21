@@ -21,7 +21,7 @@ def get_product_details(url):
         soup = BeautifulSoup(page, 'html.parser')
 
         title = soup.find('span', attrs={'id':'productTitle'}).text.strip()
-        logger.warning(f"Product: {title}")
+        # logger.warning(f"Product: {title}")
         
 
         current_price = soup.find('span', attrs={'class': 'priceToPay'})
@@ -33,7 +33,7 @@ def get_product_details(url):
 
         current_price = current_price.replace(',', '')
         curr_price_decimal = float(current_price[1:])
-        logger.warning(f"Available @ {current_price}")
+        # logger.warning(f"Available @ {current_price}")
 
         asin = soup.find('table', attrs={'id': 'productDetails_detailBullets_sections1'})
         if asin:
@@ -41,14 +41,13 @@ def get_product_details(url):
         else:
             asin = soup.select('#rpi-attribute-book_details-isbn10')[0]
             asin = asin.select('span')[-1].text.strip()
-            logger.warning(asin)
 
-        logger.warning(f"ASIN: {asin}")
+        # logger.warning(f"ASIN: {asin}")
 
         landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
         landingImg = re.sub("QL40_ML2_", "", landingImg)
 
-        logger.warning(f"Image has been scraped: {landingImg}")
+        # logger.warning(f"Image has been scraped: {landingImg}")
 
         return {
             'asin': asin,
