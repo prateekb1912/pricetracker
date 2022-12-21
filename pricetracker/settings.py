@@ -174,8 +174,8 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'print_msg',
         'schedule': 60.0,
     },
-    'check-time-every-30-seconds': {
-        'task': 'current_time',
-        'schedule': 30.0,
+    'update-product-info-db-everyday': {
+        'task': 'update_products',
+        'schedule': 15.0
     }
 }
