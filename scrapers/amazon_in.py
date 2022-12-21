@@ -33,7 +33,6 @@ def get_product_details(url):
 
         current_price = current_price.replace(',', '')
         curr_price_decimal = float(current_price[1:])
-        # logger.warning(f"Available @ {current_price}")
 
         asin = soup.find('table', attrs={'id': 'productDetails_detailBullets_sections1'})
         if asin:

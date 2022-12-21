@@ -17,8 +17,6 @@ def run_product_scraper():
     for product in Product.objects.all():
         updated_product_details = get_product_details(product.url)
 
-        updated_product_details['sell_price'] = 1000.0
-
         if updated_product_details['sell_price'] < float(product.sell_price):
             print(f"Discount {float(product.sell_price) - updated_product_details['sell_price']} for {product.title}")
 

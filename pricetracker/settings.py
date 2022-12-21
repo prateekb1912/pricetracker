@@ -176,6 +176,6 @@ CELERY_BEAT_SCHEDULE = {
     },
     'update-product-info-db-everyday': {
         'task': 'update_products',
-        'schedule': 15.0
+        'schedule': 60.0 * 60.0 * 24
     }
 }
