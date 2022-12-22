@@ -1,13 +1,21 @@
-.item-list {
+.list-grid {
+    display: grid;
     border: 1px solid black;
-    padding: 1%;
+    padding: 2rem;
+
+    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
-.item {
+.list-item {
+    display: flex;
+    align-items: center;
     border: 1px solid green;
-    margin-bottom: 2%;
-    padding: inherit;
-    list-style: none;
-    width: 50%;
-    text-overflow: ellipsis;
+    font-size: 1.5rem;
+}
+
+.item-img {
+    height: 250px;
+    width: 250px;
+    border: 1px solid black;
 }

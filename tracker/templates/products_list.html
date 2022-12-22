@@ -10,27 +10,24 @@
     <title>Products List</title>
 
     <link href="{% static 'css/products_list.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 </head>
 
 <body>
-    {% for product in list %}
-        <div class="list-group list-group-flush d-flex flex-column" >
-            <div class="align-middle">
-                <a href="/product/{{ product.asin }}"
-                    class="list-group-item list-group-item-action flex-column align-items-start">
-                    <img src="{{product.product_image}}" height="200" width="200"
-                        class="img-thumbnail img-fluid mx-auto d-block">
-                </a>
-                <h5 class="mb-1"> {{product.title}} </h5>
-                <small> Rs. {{product.sell_price}} </small>
+
+    <div class="list-grid">
+        {% for product in list %}
+            <div class="list-item">
+                <img src="{{product.product_image}}" height="250px" width="250px">
+                <div class="item-details">
+                    <div class="item-title"> {{product.title|truncatewords:5}} </div>
+                    <small class="item-price"> Rs. {{product.sell_price}} </small>
+                    <small class="item-created-time"> Added {{product.added_at|timesince}} ago </small>    
+                </div>
             </div>
-            <a class="btn btn-danger" href="{% url 'delete_product' product.asin %}"> 
-                Delete
-            </a>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+
 </body>
 
 </html>
