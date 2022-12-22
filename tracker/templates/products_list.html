@@ -19,13 +19,13 @@
         {% for product in list %}
         <div class="list-item">
             <div class="item-img">
-                <img src="{{product.product_image}}">
+                <a href="/product/{{product.asin}}"> <img src="{{product.product_image}}"> </a>
             </div>
             <div class="item-details">
                 <div class="item-title">
                     <a href="/product/{{product.asin}}"> {{product.title|truncatewords:20}} </a>
                 </div>
-                <div class="item-price"> 
+                <div class="item-price">
                     <span class="item-price-top">₹</span>
                     {{product.sell_price}}
                 </div>
