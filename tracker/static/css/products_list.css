@@ -1,6 +1,5 @@
 .list-grid {
     display: grid;
-    border: 1px solid black;
     padding: 2rem;
 
     gap: 4rem;
@@ -8,14 +7,34 @@
 }
 
 .list-item {
-    display: flex;
-    align-items: center;
-    border: 1px solid green;
-    font-size: 1.5rem;
+    display: grid;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid limegreen;
+    font-size: 1.2rem;
+}
+
+.item-title a {
+    text-decoration: none;
+    color: #007185;
 }
 
 .item-img {
-    height: 250px;
-    width: 250px;
+    width: auto;
+    max-height: 100%;
     border: 1px solid black;
+}
+
+.item-remove-btn {
+    display: inline-block;
+    color: white;
+    background-color:#f44336;
+    border-radius: 10px;
+    width: 100%;
+    height: 2rem;
+    font-weight: bold;
+    font-size: large;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 10px;
 }
