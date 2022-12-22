@@ -1,28 +1,46 @@
 .list-grid {
     display: grid;
-    padding: 2rem;
+    padding: 1rem;
 
     gap: 4rem;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
 
 .list-item {
     display: grid;
-    justify-content: center;
+    place-items: center;
     padding: 1rem;
-    border: 1px solid limegreen;
-    font-size: 1.2rem;
-}
-
-.item-title a {
-    text-decoration: none;
-    color: #007185;
+    border: 1px solid #f5f5f5;
+    font-size: 1.1rem;
 }
 
 .item-img {
     width: auto;
     max-height: 100%;
     border: 1px solid black;
+    position: relative;
+}
+
+.item-details {
+    line-height: 24px;
+}
+
+.item-title a {
+    text-decoration: none;
+    color: #0F1111;
+    font-size: 16px;
+}
+
+.item-price {
+    margin-top: 8px;
+    box-sizing: border-box;
+    font-size: 24px;
+}
+
+.item-price-top {
+    position: relative;
+    top: -.5em;
+    font-size: 12px;
 }
 
 .item-remove-btn {

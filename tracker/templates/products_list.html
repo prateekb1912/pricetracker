@@ -20,12 +20,14 @@
         <div class="list-item">
             <img src="{{product.product_image}}" height="300px" width="300px">
             <div class="item-details">
-                <div class="item-title"> 
-                    <a href="/product/{{product.asin}}"> {{product.title|truncatewords:5}} </a>
+                <div class="item-title">
+                    <a href="/product/{{product.asin}}"> {{product.title|truncatewords:20}} </a>
                 </div>
-                <small class="item-price"> Rs. {{product.sell_price}} </small>
-                <br>
-                <small class="item-created-time"> Added {{product.added_at|timesince}} ago </small>
+                <div class="item-price"> 
+                    <span class="item-price-top">₹</span> 
+                    {{product.sell_price}}
+                </div>
+                <small class="item-created-time"> Last updated {{product.last_modified|timesince}} ago </small>
             </div>
             <a class="item-remove-btn" href="/delete/{{product.asin}}"> Delete </a>
         </div>
