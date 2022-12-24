@@ -20,5 +20,5 @@ services:
       - POSTGRES_PASSWORD=patrick19135
       - POSTGRES_DB=pricetracker
   
-  volumes:
+volumes:
     postgres_data:
