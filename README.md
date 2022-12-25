@@ -19,10 +19,10 @@ The user just needs to copy the product URL from amazon page and paste into our 
 
 # Work in Progress
 These features are either being currently implemented or are considered to be implemented some time on :
-- Utilize the **Scrapy** framework for its asynchronous scraping, pipelines, database integration, etc.
-- Add other e-commerce sites like **Flipkart**, **Myntra**, **Tata CliQ** to name a few.
-- Distinguish the products as their separate categories like books, clothing, electronics (may further be declassified), etc.
-- **Dockerize** the whole project and **Deploy** it.
+- [ ] Utilize the **Scrapy** framework for its asynchronous scraping, pipelines, database integration, etc.
+- [ ] Add other e-commerce sites like **Flipkart**, **Myntra**, **Tata CliQ** to name a few.
+- [ ] Distinguish the products as their separate categories like books, clothing, electronics (may further be declassified), etc.
+- [ ] **Dockerize** the whole project and **Deploy** it.
 
 ## Learning Resources
 Here are a few resources from where I learnt a lot about some technologies used above (assuming you know a thing or two about Python):
