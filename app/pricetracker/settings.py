@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'pricetracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get("SQL_ENGINE", 'django.db.backebds.sqlite3'),
+        'ENGINE': os.environ.get("SQL_ENGINE", 'django.db.backends.sqlite3'),
         'NAME': os.environ.get("SQL_DATABASE", BASE_DIR/'db.sqlite3'),
         'USER': os.environ.get("SQL_USER", 'user'),
         'PASSWORD': os.environ.get("SQL_PASSWORD", 'password'),
