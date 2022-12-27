@@ -9,8 +9,39 @@ services:
       - ./.env.dev
     depends_on:
       - db
+      - rabbitmq_server
     command: "python manage.py runserver 0.0.0.0:8000"
-    
+  
+  rabbitmq_server:
+    image: rabbitmq:3-management
+    restart: always
+    env_file:
+      - ./.env.dev
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  celery_worker:
+    build: ./app     
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - rabbitmq_server
+      - db
+    command: "celery -A pricetracker worker -l INFO "
+
+  celery_beat:
+    build: ./app     
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - rabbitmq_server
+      - db
+    command: "celery -A pricetracker beat -l INFO "
+
   db:
     image: postgres:15.1-alpine
     volumes: 
@@ -22,3 +53,4 @@ services:
   
 volumes:
     postgres_data:
+    rabbitmq_data:
