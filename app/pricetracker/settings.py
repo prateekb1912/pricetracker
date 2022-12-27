@@ -165,7 +165,7 @@ STATIC_ROOT = BASE_DIR / 'tracker/assets'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CELERY_BROKER_URL = 'amqp://localhost:5672'
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", 'amqp://user:password@127.0.0.1:5672')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
