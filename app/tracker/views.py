@@ -3,11 +3,11 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
-from django.views.decorators.csrf import csrf_exempt
 
 from scrapers.amazon_in import get_product_details
 
 from .models import Product
+from .forms import CreateUserForm
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +29,17 @@ def index(request):
 
     return render(request, 'index.html')
 
+def register_user(request):
+    form = CreateUserForm()
+
+    if request.method == 'POST':
+        
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    context = {'form': form}
+    return render(request, 'register.html', context)
 
 def view_product(request, asin):
     try:
@@ -51,16 +62,3 @@ def delete_product(request, asin):
         return redirect('product_list')
 
     return render(request, 'delete_product.html')
-
-@csrf_exempt
-def update_product(request, asin):
-    product = Product.objects.get(asin=asin)
-    if request.method == 'POST':
-        product.title = request.POST.get('title')
-        product.sell_price = request.POST.get('sell_price')
-
-        product.save()
-        
-        return HttpResponse(product)
-    
-    return HttpResponseBadRequest("Not Allowed")

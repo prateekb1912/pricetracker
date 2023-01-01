@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <link rel="stylesheet" href="{% static 'css/register_page.css' %}">
+</head>
+
+<body>
+    <main class="user-form">
+        <form action="" method="post" class="register-form">
+            {% csrf_token %}
+            <div>
+                <label for="email"> Email Address: </label>
+                {{form.username}}
+            </div>
+
+            <div>
+                <label for="password1"> Enter password: </label>
+                {{form.password1}}
+            </div>
+
+            <div>
+                <label for="password2"> Confirm password: </label>
+                {{form.password2}}
+            </div>
+
+            <input type="submit" name="Create User">
+        </form>
+    </main>
+
+</body>
+
+</html>
