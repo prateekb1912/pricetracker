@@ -9,6 +9,16 @@ The user just needs to copy the product URL from amazon page and paste into our 
 - **Celery** - Task Queue to schedule tasks concerning updation of products. Uses **RabbitMQ** as the message broker
 - **HTML, CSS, and Bootstrap** - Constitute the front-end portion for the project (not really a front-end guy )
 
+## Steps to run the project:
+- Clone the Github repository - https://github.com/prateekb1912/amazon-price-tracker
+- Change directory to amazon-price-tracker/
+- (Make sure you have Docker and docker-compose installed on your machine)
+- Run the following commands to start the containers - 
+  - `docker-compose build`
+  - `docker-compose up -d`
+- Navigate to the site [http://locahost:8000](http://locahost:8000)
+
+
 | ![index page](./UI_IMAGES/index.png)
 | :-:
 | **Home Page**
