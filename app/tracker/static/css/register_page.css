@@ -1,6 +1,0 @@
-.register-form {
-    display: grid;
-    grid-auto-flow: row;
-    justify-content: center;
-    gap: 1rem;
-}

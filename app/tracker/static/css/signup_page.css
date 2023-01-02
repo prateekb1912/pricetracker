@@ -1,0 +1,36 @@
+body {
+    font-size: 21px;
+}
+
+
+.register-form {
+    border: 1px solid green;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 1rem;
+    place-items: center;
+    align-items: start;
+}
+
+.form-field {
+    border: 1px solid black;
+    display: grid;
+    padding: 8px;
+    grid-auto-flow: column;
+    width: 40%;
+    align-items: center;
+    justify-items: center;
+    columns: auto;
+}
+
+label {
+    border: 2px solid gold;
+}
+
+input {
+    border: 2px solid cornflowerblue;
+    font-size: 16px;
+    width: 80%;
+    padding: 12px;
+    outline: none;
+}
