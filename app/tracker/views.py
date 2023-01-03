@@ -9,6 +9,8 @@ from scrapers.amazon_in import get_product_details
 from .models import Product
 from .forms import CreateUserForm
 
+import uuid
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,12 +35,21 @@ def register_user(request):
     form = CreateUserForm()
 
     if request.method == 'POST':
-        
-        form = CreateUserForm(request.POST)
+        logger.warning(request.POST)
+        data = request.POST.copy()
+
+        data['username'] = 'patrick123'
+        logger.warning(data)
+
+        logger.warning(f'Form: {form} {form.is_valid}')
+
+        form.instance.username = uuid
+
         if form.is_valid():
             form.save()
 
     context = {'form': form}
+
     return render(request, 'register.html', context)
 
 def view_product(request, asin):
