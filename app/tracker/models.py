@@ -16,3 +16,5 @@ class Product(models.Model):
 
 class CustomUser(AbstractBaseUser):
     email = models.EmailField(unique=True, primary_key=True)
+
+    USERNAME_FIELD = 'email'

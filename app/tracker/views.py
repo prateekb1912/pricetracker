@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from scrapers.amazon_in import get_product_details
 
 from .models import Product
-from .forms import CreateUserForm
+from .forms import UserForm
 
 import uuid
 
@@ -32,18 +32,12 @@ def index(request):
     return render(request, 'index.html')
 
 def register_user(request):
-    form = CreateUserForm()
+    form = UserForm()
 
     if request.method == 'POST':
         logger.warning(request.POST)
-        data = request.POST.copy()
 
-        data['username'] = 'patrick123'
-        logger.warning(data)
-
-        logger.warning(f'Form: {form} {form.is_valid}')
-
-        form.instance.username = uuid
+        form = UserForm(request.POST)
 
         if form.is_valid():
             form.save()
