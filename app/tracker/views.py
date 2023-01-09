@@ -1,5 +1,6 @@
 import logging
 
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
@@ -37,7 +38,12 @@ def register_user(request):
     if request.method == 'POST':
         logger.warning(request.POST)
 
-        form = UserForm(request.POST)
+        data = request.POST.copy()
+        data._mutable = True
+
+        data['password'] = make_password(request.POST['password'])
+
+        form = UserForm(data)
 
         if form.is_valid():
             form.save()

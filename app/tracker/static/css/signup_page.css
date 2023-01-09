@@ -4,7 +4,6 @@ body {
 }
 
 .gridContainer {
-    border: 1px solid red;
     display: grid;
     place-items: center;
     justify-content: center;
@@ -34,9 +33,17 @@ body {
     width: 50%;
 }
 
-.first_Name_Input .first_Name {
+.firstNameInput .firstName {
     width: 50% !important;
 }
+
+.lastNameLabel {
+    margin-left: 45px;
+}
+.lastNameInput {
+    margin-left: 45px;
+}
+
 
 label {
     padding: 12px 12px 12px 0;

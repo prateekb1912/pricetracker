@@ -15,6 +15,8 @@ class Product(models.Model):
         return f'{self.title} available currently @ {self.sell_price} added on {self.added_at} last modified {self.last_modified} '
 
 class CustomUser(AbstractBaseUser):
+    first_name = models.CharField(max_length=64, null=False, blank=True)
+    last_name = models.CharField(max_length=80, null=True)
     email = models.EmailField(unique=True, primary_key=True)
 
     USERNAME_FIELD = 'email'
