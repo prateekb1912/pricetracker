@@ -1,36 +1,132 @@
 body {
     font-size: 21px;
+    font-family: sans-serif;
 }
 
-
-.register-form {
-    border: 1px solid green;
+.gridContainer {
+    border: 1px solid red;
     display: grid;
-    grid-auto-flow: row;
-    row-gap: 1rem;
     place-items: center;
-    align-items: start;
+    justify-content: center;
+    min-height: 50rem;
 }
 
-.form-field {
-    border: 1px solid black;
+.personalDetailDiv {
     display: grid;
-    padding: 8px;
-    grid-auto-flow: column;
     width: 40%;
-    align-items: center;
-    justify-items: center;
-    columns: auto;
+    background-color: #fafafa;
+    padding: 32px;
+}
+
+.personalDetailHeading {
+    font-size: 24px;
+    font-weight: bold;
+    color: #11141c;
+}
+.div_first_name {
+    float: left;
+    width: 40%;
+}
+
+.div_last_name {
+    padding-left: 10px;
+    float: left;
+    width: 50%;
+}
+
+.first_Name_Input .first_Name {
+    width: 50% !important;
 }
 
 label {
-    border: 2px solid gold;
+    padding: 12px 12px 12px 0;
+    display: inline-block;
 }
 
-input {
-    border: 2px solid cornflowerblue;
-    font-size: 16px;
-    width: 80%;
-    padding: 12px;
+.label {
+    margin-top: 24px;
+    margin-bottom: -7px;
+    opacity: 0.5;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.33;
+    letter-spacing: 0.45px;
+    color: #11141c;
+}
+
+.labelData {
+    width: 100%;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: #fafafa;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.17;
+    letter-spacing: 0.64px;
+    color: #11141c;
+}
+
+
+.labelData:focus {
     outline: none;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    /* Firefox */
+    opacity: 0.1;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.64px;
+    color: #11141c;
+}
+
+ :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    opacity: 0.1;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.64px;
+    color: #11141c;
+}
+
+ ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    opacity: 0.1;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.64px;
+    color: #11141c;
+}
+
+.btn_div {
+    margin-top: 60px;
+    display: grid;
+    place-items: center;
+    /* margin-left: 40px; */
+    /* margin-bottom: 120px; */
+}
+
+.button {
+    width: 123px;
+    height: 56px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.33;
+    letter-spacing: 0.5px;
+    color: #f8f8f8;
+    border: none;
+    cursor: pointer;
 }

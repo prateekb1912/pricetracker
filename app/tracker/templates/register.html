@@ -9,25 +9,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="{% static 'css/signup_page.css' %}">
 
 </head>
 
 <body>
-    <form action="" method="post" class="register-form">
-        {% csrf_token %}
-        <div class="form-field">
-            <label for="email"> Email Address: </label>
-            {{form.email}}
+    <div class="gridContainer">
+        <div class="personalDetailDiv">
+            <h1 class="personalDetailHeading">Enter your details</h1>
+            <hr class="first_hr">
+            <form action="" method="post" class="register-form">
+                {% csrf_token %}
+
+                <div>
+                    <div class="div_first_name">
+                        <label class="label first_Name_Label">first name</label>
+                        <input type="text" class="labelData first_Name_Input" id="first_name" placeholder="steven">
+                    </div>
+                    <div class="div_last_name">
+                        <label class="label last_Name_Label">last name</label>
+                        <input type="text" class="labelData last_Name_Input" id="last_name" placeholder="williamson">
+                    </div>
+
+                    <label class="label emailLabel">email address</label>
+                    <input type="email" class="labelData email_Name_Input" id="email" placeholder="abc@example.com"
+                        autocomplete="false">
+
+                    <label class="label passwordLabel">password</label>
+                    <input type="password" class="labelData email_Name_Input" id="password" placeholder="password">
+
+
+                    <div class="btn_div">
+                        <button class="button btn-primary text-center">submit</button>
+                    </div>
+
+                </div>
+
+            </form>
         </div>
+    </div>
 
-        <div class="form-field">
-            <label for="password1"> Enter password: </label>
-            {{form.password}}
-        </div>        
-
-        <input type="submit" name="Create User" value="Sign Up">
-    </form>
 </body>
 
 </html>
