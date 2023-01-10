@@ -8,7 +8,7 @@ from django.shortcuts import redirect, render
 from scrapers.amazon_in import get_product_details
 
 from .models import Product
-from .forms import UserForm
+from .forms import UserCreationForm
 
 import uuid
 
@@ -33,7 +33,7 @@ def index(request):
     return render(request, 'index.html')
 
 def register_user(request):
-    form = UserForm()
+    form = UserCreationForm()
 
     if request.method == 'POST':
         logger.warning(request.POST)
@@ -43,10 +43,12 @@ def register_user(request):
 
         data['password'] = make_password(request.POST['password'])
 
-        form = UserForm(data)
+        form = UserCreationForm(data)
 
         if form.is_valid():
             form.save()
+        
+        return redirect('index')
 
     context = {'form': form}
 
