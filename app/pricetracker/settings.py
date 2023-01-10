@@ -163,7 +163,7 @@ STATIC_ROOT = BASE_DIR / 'tracker/assets'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_FIELD = 'tracker.CustomUser'
+AUTH_USER_MODEL = 'tracker.CustomUser'
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", 'amqp://user:password@127.0.0.1:5672')
 CELERY_ACCEPT_CONTENT = ['application/json']

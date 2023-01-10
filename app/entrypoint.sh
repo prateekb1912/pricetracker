@@ -13,6 +13,7 @@ then
 fi
 
 python manage.py makemigrations
+python manage.py migrate tracker
 python manage.py migrate
 
 exec "$@"

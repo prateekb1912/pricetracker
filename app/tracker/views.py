@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
@@ -10,11 +11,9 @@ from scrapers.amazon_in import get_product_details
 from .models import Product
 from .forms import UserCreationForm
 
-import uuid
-
 logger = logging.getLogger(__name__)
 
-
+@login_required(login_url='/register/', redirect_field_name='')
 def index(request):
     if request.method == 'POST':
         post_data = request.POST
@@ -23,8 +22,8 @@ def index(request):
         product_data = get_product_details(url)
 
         if 'error' in product_data:
-
             return HttpResponseBadRequest('Error parsing product site')
+        
         new_product = Product(**product_data)
         new_product.save()
 
