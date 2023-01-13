@@ -1,3 +1,4 @@
+{% extends '_base.html' %}
 {% load static %}
 
 <html lang="en">
@@ -7,14 +8,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Products List</title>
+    <title>{% block title %} Products List {% endblock %}</title>
 
+    {% block css %}
     <link href="{% static 'css/products_list.css' %}" rel="stylesheet" />
+    {% endblock %}
 
 </head>
 
 <body>
-
+    {% block content %}
     <div class="list-grid">
         {% for product in list %}
         <div class="list-item">
@@ -35,6 +38,7 @@
         {% endfor %}
     </div>
 
+    {% endblock %}
 </body>
 
 </html>

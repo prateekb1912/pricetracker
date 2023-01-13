@@ -1,3 +1,4 @@
+{% extends '_base.html' %}
 {% load static %} 
 
 <!doctype html>
@@ -9,24 +10,26 @@
     
     <title>Track it Down | Track your favorite products</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
-
-
-    <!-- Custom styles for this template -->
+    {% block css %}
     <link href="{% static 'css/signin.css' %}"rel="stylesheet">
+    {% endblock %}
 </head>
 
-<body class="text-center">
-    <form class="form-signin" action="" method="post">
-        {% csrf_token %}
-        <h1 class="h3 mb-3 font-weight-normal">Enter the Product URL</h1>
-        <label for="inputURL" class="sr-only">Email address</label>
-        <input type="url" name="inputURL" id="inputURL" autocomplete="false"
-        class="form-control" placeholder="https://amazon.in/..." required autofocus>
-        <br>
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
-    </form>
+<body>
+    {% block content %}
+    <div class="text-center">
+        <form class="form-signin" action="" method="post">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 font-weight-normal">Enter the Product URL</h1>
+            <label for="inputURL" class="sr-only">Email address</label>
+            <input type="url" name="inputURL" id="inputURL" autocomplete="false"
+            class="form-control" placeholder="https://amazon.in/..." required autofocus>
+            <br>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
+        </form>
+    </div>
+    {% endblock %}
+
 </body>
 
 </html>
