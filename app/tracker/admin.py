@@ -1,9 +1,10 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import Group
 
-from .models import Product, CustomUser
 from .forms import UserChangeForm, UserCreationForm
+from .models import Cart, CustomUser, Product
+
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
@@ -30,6 +31,7 @@ class UserAdmin(BaseUserAdmin):
 
 # Register your models here.
 admin.site.register(Product)
+admin.site.register(Cart)
 
 admin.site.register(CustomUser, UserAdmin)
 admin.site.unregister(Group)

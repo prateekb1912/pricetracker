@@ -43,7 +43,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
     def has_perm(self, perm, obj=None):
         return True
+
+class Cart(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     
+    @property
+    def num_products(self):
+        return self.product_set.count()
+
+    def __str__(self):
+        return f"{self.user}'s cart containing {self.num_products} products"
 
 class Product(models.Model):
     asin = models.CharField(max_length=20, unique = True, primary_key=True, default='ASIN000')
@@ -53,6 +62,8 @@ class Product(models.Model):
     sell_price = models.DecimalField(max_digits=10, decimal_places=2)
     added_at = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'{self.title} available currently @ {self.sell_price} added on {self.added_at} last modified {self.last_modified} '
