@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/signup_page.css' %}">
+
+</head>
+
+<body>
+    <div class="gridContainer">
+        <div class="personalDetailDiv">
+            <h1 class="personalDetailHeading">Enter your details</h1>
+            <hr class="first_hr">
+            <form action="" method="post" class="register-form">
+                {% csrf_token %}
+
+                <div>
+                    <div class="div_first_name">
+                        <label class="label first_Name_Label">first name <span class="required"> * </span> </label>
+                        <!-- <input type="text" class="labelData first_Name_Input" id="first_name" placeholder="steven"> 
+                        -->
+                        {{form.first_name}}
+                    </div>
+                    <div class="div_last_name">
+                        <label class="label lastNameLabel">last name</label>
+                        <!-- <input type="text" class="labelData last_Name_Input" id="last_name" placeholder="williamson"> -->
+                        {{ form.last_name }}
+                    </div>
+
+                    <label class="label emailLabel">email address <span class="required"> * </span> </label>
+                    <!-- <input type="email" class="labelData email_Name_Input" id="email" placeholder="abc@example.com"
+                        autocomplete="false"> -->
+                        {{ form.email }}
+
+                    <label class="label passwordLabel">password <span class="required"> * </span> </label>
+                    <!-- <input type="password" class="labelData email_Name_Input" id="password" placeholder="password"> -->
+                    {{ form.password }}
+
+                    <div class="btn_div">
+                        <button class="button btn-primary text-center">submit</button>
+                    </div>
+                </div>
+            </form>
+            <div class="login-btn-div">
+                <a class="text-secondary" href="/login">already registered? login.</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

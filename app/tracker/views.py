@@ -1,7 +1,7 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -15,7 +15,7 @@ from .forms import UserCreationForm
 
 logger = logging.getLogger(__name__)
 
-@login_required(login_url='/register/', redirect_field_name='')
+@login_required(login_url='/login/')
 def index(request):
     if request.method == 'POST':
         post_data = request.POST
@@ -34,8 +34,6 @@ def index(request):
     return render(request, 'index.html')
 
 def register_user(request):
-    form = UserCreationForm()
-
     if request.method == 'POST':
         data = request.POST
         logger.warning(data)
@@ -53,11 +51,28 @@ def register_user(request):
             
             return redirect('index')
 
+    form = UserCreationForm()
     context = {'form': form}
 
-    return render(request, 'register.html', context)
+    return render(request, 'registration/register.html', context)
 
-@login_required(login_url='/register/', redirect_field_name='')
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        print(f'{username}:{password}')
+
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('index')
+
+        logger.warning(user)
+
+    return render(request, 'registration/login.html', context={})
+
+@login_required(login_url='/login/')
 def view_product(request, asin):
     try:
         product = Product.objects.filter(asin__contains=asin)
@@ -66,13 +81,13 @@ def view_product(request, asin):
     except ObjectDoesNotExist:
         return HttpResponseBadRequest({'error': 'Wrong ASIN'})
 
-@login_required(login_url='/register/', redirect_field_name='')
+@login_required(login_url='/login/')
 def list_all_products(request):
     products_list = Product.objects.order_by('-added_at')
 
     return render(request, template_name='products_list.html', context={'list': products_list})
 
-@login_required(login_url='/register/', redirect_field_name='')
+@login_required(login_url='/login/')
 def delete_product(request, asin):
     product = Product.objects.get(asin=asin)
     if request.method == 'POST':

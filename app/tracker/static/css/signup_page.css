@@ -1,5 +1,5 @@
 body {
-    font-size: 21px;
+    font-size: 32px;
     font-family: sans-serif;
 }
 
@@ -116,20 +116,25 @@ label {
     letter-spacing: 0.64px;
     color: #11141c;
 }
-
 .btn_div {
     margin-top: 60px;
     display: grid;
     place-items: center;
-    /* margin-left: 40px; */
+    grid-auto-flow: column;
+    gap: 2rem;
     /* margin-bottom: 120px; */
 }
 
+.login-btn-div {
+    margin-top: 30px;
+    font-size: 16px;
+}
+
 .button {
-    width: 123px;
+    width: 40%;
     height: 56px;
-    border-radius: 16px;
-    font-size: 15px;
+    border-radius: 8px;
+    font-size: 12px;
     font-weight: bold;
     line-height: 1.33;
     letter-spacing: 0.5px;
