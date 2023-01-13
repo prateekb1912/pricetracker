@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", 'shhh')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", '127.0.0.1').split(" ")
 
 
 # Application definition
@@ -155,15 +155,18 @@ DATETIME_INPUT_FORMATS = [
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'tracker/static']
+if not DEBUG:
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATIC_ROOT = BASE_DIR / 'tracker/assets'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'tracker.CustomUser'
+AUTHENTICATION_BACKENDS = ['tracker.backends.CustomBackend',]
+
+LOGIN_REDIRECT_URL = "/"
 
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", 'amqp://user:password@127.0.0.1:5672')
 CELERY_ACCEPT_CONTENT = ['application/json']
