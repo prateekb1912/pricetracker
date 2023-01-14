@@ -11,21 +11,20 @@
     <title>Track it Down | Track your favorite products</title>
 
     {% block css %}
-    <link href="{% static 'css/signin.css' %}"rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
     {% endblock %}
 </head>
 
 <body>
     {% block content %}
-    <div class="text-center">
-        <form class="form-signin" action="" method="post">
+    <div class="input-block">
+        <h3 class="div-title">Enter the Product URL</h3>
+        <form action="" method="post">
             {% csrf_token %}
-            <h1 class="h3 mb-3 font-weight-normal">Enter the Product URL</h1>
-            <label for="inputURL" class="sr-only">Email address</label>
             <input type="url" name="inputURL" id="inputURL" autocomplete="false"
             class="form-control" placeholder="https://amazon.in/..." required autofocus>
             <br>
-            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
+            <input type="submit" value="Add Product"/>
         </form>
     </div>
     {% endblock %}
