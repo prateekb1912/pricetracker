@@ -168,6 +168,14 @@ AUTHENTICATION_BACKENDS = ['tracker.backends.CustomBackend',]
 
 LOGIN_REDIRECT_URL = "/"
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = 'support@trackitdown.com'
+
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", 'amqp://user:password@127.0.0.1:5672')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
