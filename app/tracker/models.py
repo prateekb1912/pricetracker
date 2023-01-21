@@ -49,7 +49,7 @@ class Cart(models.Model):
     
     @property
     def num_products(self):
-        return self.product_set.count()
+        return self.products.count()
 
     def __str__(self):
         return f"{self.user}'s cart containing {self.num_products} products"
@@ -63,7 +63,7 @@ class Product(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='products')
 
     def __str__(self):
         return f'{self.title} available currently @ {self.sell_price} added on {self.added_at} last modified {self.last_modified} '
