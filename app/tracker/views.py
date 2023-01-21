@@ -25,13 +25,13 @@ def index(request):
 
         if 'error' in product_data:
             return HttpResponseBadRequest('Error parsing product site')
-        
-        new_product = Product(**product_data)
-        new_product.save()
 
         user_cart = Cart.objects.get(user=request.user)
 
-        logger.warning(user_cart)
+        new_product = Product(**product_data)
+        new_product.cart = user_cart
+
+        new_product.save()
 
         return redirect('/products')
 

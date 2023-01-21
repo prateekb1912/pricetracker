@@ -14,7 +14,9 @@ def get_product_details(url):
     
     try:
         resp = requests.get(url, headers=headers)
-        time.sleep(2)
+        time.sleep(2)   
+        
+        logger.warning(resp.status_code)
 
         page = resp.text
 
@@ -23,19 +25,19 @@ def get_product_details(url):
         title = soup.find('span', attrs={'id':'productTitle'}).text.strip()
         logger.warning(f"Product: {title}")
         
-
         current_price = soup.find('span', attrs={'class': 'priceToPay'})
 
         if current_price:
             current_price = current_price.find('span',attrs={'class': 'a-offscreen'}).text
         else :
-            logger.warning('asasjka')
             current_price = soup.select('#price')[0].text
 
         current_price = current_price.replace(',', '')
         curr_price_decimal = float(current_price[1:])
+        logger.warning(f"Current Price: {curr_price_decimal}")
 
         asin = soup.find('table', attrs={'id': 'productDetails_detailBullets_sections1'})
+
         if asin:
             asin = asin.find('td', attrs={'class': 'prodDetAttrValue'}).text.strip()
         else:
@@ -44,8 +46,21 @@ def get_product_details(url):
 
         logger.warning(f"ASIN: {asin}")
 
-        landingImg = soup.find('div', attrs={'id': 'main-image-container'}).find('img').get('src')
-        landingImg = re.sub("QL40_ML2_", "", landingImg)
+        productImage = soup.find('img', attrs={'id': 'landingImage'})
+
+        logger.warning(productImage)
+
+        if not productImage:
+            productImage = soup.find('img', attrs={'id': 'imgBlkFront'})
+
+        logger.warning(productImage)
+
+        productImage = productImage.get('src')
+
+        imgURLSplit = productImage.split('.')
+        del imgURLSplit[-2]
+
+        productImageURL = '.'.join(imgURLSplit)
 
         # logger.warning(f"Image has been scraped: {landingImg}")
 
@@ -54,7 +69,7 @@ def get_product_details(url):
             'title': title,
             'url': url,
             'sell_price': curr_price_decimal,
-            'product_image': landingImg
+            'product_image': productImageURL
             }
 
     except Exception as e:
