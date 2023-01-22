@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CustomUserManager(BaseUserManager):
@@ -48,8 +49,12 @@ class Cart(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     
     @property
-    def num_products(self):
+    def cart_count(self):
         return self.products.count()
+
+    @property 
+    def cart_value(self):
+        return self.products.aggregate(Sum('sell_price'))
 
     def __str__(self):
         return f"{self.user}'s cart containing {self.num_products} products"
