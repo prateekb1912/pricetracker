@@ -54,10 +54,10 @@ class Cart(models.Model):
 
     @property 
     def cart_value(self):
-        return self.products.aggregate(Sum('sell_price'))
+        return self.products.all().aggregate(Sum('sell_price'))['sell_price__sum']
 
     def __str__(self):
-        return f"{self.user}'s cart containing {self.num_products} products totalling Rs. {self.cart_value}"
+        return f"{self.user}'s cart containing {self.cart_count} products totalling Rs. {self.cart_value}"
 
 class Product(models.Model):
     asin = models.CharField(max_length=20, unique = True, primary_key=True, default='ASIN000')

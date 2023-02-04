@@ -62,8 +62,8 @@ def register_user(request):
 
             user = form.save()
 
-            associated_cart = Cart(user=user)
-            associated_cart.save()
+            new_cart = Cart.objects.create(user=user)
+            new_cart.save()
 
             login(request, user)
                         
@@ -78,8 +78,6 @@ def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-
-        print(f'{username}:{password}')
 
         user = authenticate(request, username=username, password=password)
         if user:
@@ -101,7 +99,11 @@ def view_product(request, asin):
 
 @login_required(login_url='/login/')
 def list_all_products(request):
-    products_list = Product.objects.order_by('-added_at')
+    current_user = request.user
+
+    related_cart = current_user.cart
+
+    products_list = Product.objects.filter(cart=related_cart).order_by('-added_at')
 
     return render(request, template_name='products_list.html', context={'list': products_list})
 
