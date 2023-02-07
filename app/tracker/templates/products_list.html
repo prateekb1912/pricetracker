@@ -22,18 +22,18 @@
         {% for product in list %}
         <div class="list-item">
             <div class="item-img">
-                <a href="/product/{{product.asin}}"> <img src="{{product.product_image}}"> </a>
+                <a href="/product/{{product.id}}"> <img src="{{product.image_url}}"> </a>
             </div>
             <div class="item-details">
                 <div class="item-title">
-                    <a href="/product/{{product.asin}}"> {{product.title|truncatewords:20}} </a>
+                    <a href="/product/{{product.id}}"> {{product.title|truncatewords:20}} </a>
                 </div>
                 <div class="item-price">
                     <span class="item-price-top">₹</span>
-                    {{product.sell_price}}
+                    {{product.price}}
                 </div>
             </div>
-            <a class="item-remove-btn" href="/delete/{{product.asin}}"> Delete </a>
+            <a class="item-remove-btn" href="/delete/{{product.id}}"> Delete </a>
         </div>
         {% endfor %}
     </div>

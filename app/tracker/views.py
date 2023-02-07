@@ -8,7 +8,7 @@ from django.core.mail import send_mail, mail_admins, BadHeaderError
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 
-from scrapers.amazon_in import get_product_details
+from scrapers import amazon_in, flipkart
 
 from .models import Product, Cart
 from .forms import UserCreationForm
@@ -21,7 +21,10 @@ def index(request):
         post_data = request.POST
         url = post_data['inputURL']
 
-        product_data = get_product_details(url)
+        if 'amazon' in url:
+            product_data = amazon_in.get_product_details(url)
+        else:
+            product_data = flipkart.get_product_details(url)
 
         if 'error' in product_data:
             return HttpResponseBadRequest('Error parsing product site')
@@ -89,18 +92,17 @@ def login_user(request):
     return render(request, 'registration/login.html', context={})
 
 @login_required(login_url='/login/')
-def view_product(request, asin):
+def view_product(request, id):
     try:
-        product = Product.objects.filter(asin__contains=asin)
+        product = Product.objects.get(id=id)
         return HttpResponse(product)
 
     except ObjectDoesNotExist:
-        return HttpResponseBadRequest({'error': 'Wrong ASIN'})
+        return HttpResponseBadRequest({'error': 'Wrong Product ID'})
 
 @login_required(login_url='/login/')
-def list_all_products(request):
+def list_all_products(request):    
     current_user = request.user
-
     related_cart = current_user.cart
 
     products_list = Product.objects.filter(cart=related_cart).order_by('-added_at')
@@ -108,8 +110,8 @@ def list_all_products(request):
     return render(request, template_name='products_list.html', context={'list': products_list})
 
 @login_required(login_url='/login/')
-def delete_product(request, asin):
-    product = Product.objects.get(asin=asin)
+def delete_product(request, id):
+    product = Product.objects.get(id=id)
     if request.method == 'POST':
         product.delete()
         return redirect('product_list')
