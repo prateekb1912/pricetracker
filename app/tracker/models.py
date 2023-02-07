@@ -54,17 +54,17 @@ class Cart(models.Model):
 
     @property 
     def cart_value(self):
-        return self.products.all().aggregate(Sum('sell_price'))['sell_price__sum']
+        return self.products.all().aggregate(Sum('price'))['price__sum']
 
     def __str__(self):
         return f"{self.user}'s cart containing {self.cart_count} products totalling Rs. {self.cart_value}"
 
 class Product(models.Model):
-    asin = models.CharField(max_length=20, unique = True, primary_key=True, default='ASIN000')
+    id = models.CharField(max_length=20, unique = True, primary_key=True, default='ASIN000')
     title = models.CharField(max_length=256)
     url = models.URLField(max_length=512, null=True)
-    product_image = models.URLField(max_length=512)
-    sell_price = models.DecimalField(max_digits=10, decimal_places=2)
+    image_url = models.URLField(max_length=512)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     added_at = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
 
