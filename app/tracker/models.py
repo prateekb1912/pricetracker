@@ -60,6 +60,14 @@ class Cart(models.Model):
         return f"{self.user}'s cart containing {self.cart_count} products totalling Rs. {self.cart_value}"
 
 class Product(models.Model):
+    SITE_CHOICES = [
+        ('AM', 'amazon'),
+        ('FL', 'flipkart'),
+        ('TQ', 'tatacliq'),
+        ('MY', 'myntra'),
+        ('NA', 'others')
+    ]
+
     id = models.CharField(max_length=20, unique = True, primary_key=True, default='ASIN000')
     title = models.CharField(max_length=256)
     url = models.URLField(max_length=512, null=True)
@@ -67,6 +75,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     added_at = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+    site = models.CharField(max_length=40, default='NA')
 
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='products')
 

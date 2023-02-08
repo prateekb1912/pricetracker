@@ -34,7 +34,8 @@ def get_product_details(url):
             'title': title,
             'url': url,
             'price': price_decimal,
-            'image_url': product_img
+            'image_url': product_img,
+            'site': 'flipkart'
         }
 
     except Exception as e:
