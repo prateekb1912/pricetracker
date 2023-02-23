@@ -1,33 +1,33 @@
 import logging
 
-from django.contrib.auth import authenticate, login, logout 
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.mail import send_mail, mail_admins, BadHeaderError
+from django.core.mail import BadHeaderError, mail_admins, send_mail
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
-
 from scrapers import amazon_in, flipkart
 
-from .models import Product, Cart
 from .forms import UserCreationForm
+from .models import Cart, Product
 
 logger = logging.getLogger(__name__)
 
-@login_required(login_url='/login/')
-def index(request):
-    if request.method == 'POST':
-        post_data = request.POST
-        url = post_data['inputURL']
 
-        if 'amazon' in url:
+@login_required(login_url="/login/")
+def index(request):
+    if request.method == "POST":
+        post_data = request.POST
+        url = post_data["inputURL"]
+
+        if "amazon" in url:
             product_data = amazon_in.get_product_details(url)
         else:
             product_data = flipkart.get_product_details(url)
 
-        if 'error' in product_data:
-            return HttpResponseBadRequest('Error parsing product site')
+        if "error" in product_data:
+            return HttpResponseBadRequest("Error parsing product site")
 
         user_cart = Cart.objects.get(user=request.user)
 
@@ -36,18 +36,19 @@ def index(request):
 
         new_product.save()
 
-        return redirect('/products')
+        return redirect("/products")
 
-    return render(request, 'index.html')
+    return render(request, "index.html")
+
 
 def register_user(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data = request.POST
         logger.warning(data)
 
         data = request.POST.copy()
         data._mutable = True
-        data['password'] = make_password(request.POST['password'])
+        data["password"] = make_password(request.POST["password"])
 
         form = UserCreationForm(data)
 
@@ -69,51 +70,57 @@ def register_user(request):
             new_cart.save()
 
             login(request, user)
-                        
-            return redirect('index')
+
+            return redirect("index")
 
     form = UserCreationForm()
-    context = {'form': form}
+    context = {"form": form}
 
-    return render(request, 'registration/register.html', context)
+    return render(request, "registration/register.html", context)
+
 
 def login_user(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
 
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('index')
+            return redirect("index")
 
         logger.warning(user)
 
-    return render(request, 'registration/login.html', context={})
+    return render(request, "registration/login.html", context={})
 
-@login_required(login_url='/login/')
+
+@login_required(login_url="/login/")
 def view_product(request, id):
     try:
         product = Product.objects.get(id=id)
         return HttpResponse(product)
 
     except ObjectDoesNotExist:
-        return HttpResponseBadRequest({'error': 'Wrong Product ID'})
+        return HttpResponseBadRequest({"error": "Wrong Product ID"})
 
-@login_required(login_url='/login/')
-def list_all_products(request):    
+
+@login_required(login_url="/login/")
+def list_all_products(request):
     current_user = request.user
     related_cart = current_user.cart
 
-    products_list = Product.objects.filter(cart=related_cart).order_by('-added_at')
+    products_list = Product.objects.filter(cart=related_cart).order_by("-added_at")
 
-    return render(request, template_name='products_list.html', context={'list': products_list})
+    return render(
+        request, template_name="products_list.html", context={"list": products_list}
+    )
 
-@login_required(login_url='/login/')
+
+@login_required(login_url="/login/")
 def delete_product(request, id):
     product = Product.objects.get(id=id)
-    if request.method == 'POST':
+    if request.method == "POST":
         product.delete()
-        return redirect('product_list')
+        return redirect("product_list")
 
-    return render(request, 'delete_product.html')
+    return render(request, "delete_product.html")

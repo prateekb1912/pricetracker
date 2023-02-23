@@ -10,24 +10,25 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('first_name', 'last_name', 'email')
-    list_filter = ('is_staff',)
+    list_display = ("first_name", "last_name", "email")
+    list_filter = ("is_staff",)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name','last_name')}),
-        ('Permissions', {'fields': ('is_staff',)}),
+        (None, {"fields": ("email", "password")}),
+        ("Personal info", {"fields": ("first_name", "last_name")}),
+        ("Permissions", {"fields": ("is_staff",)}),
     )
 
     add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'first_name', 'last_name', 'password')
-        })
+        None,
+        {
+            "classes": ("wide",),
+            "fields": ("email", "first_name", "last_name", "password"),
+        },
     )
-    search_fields = ('email', 'first_name', 'last_name')
-    ordering = ('email',)
+    search_fields = ("email", "first_name", "last_name")
+    ordering = ("email",)
     filter_horizontal = ()
-    
+
 
 # Register your models here.
 admin.site.register(Product)

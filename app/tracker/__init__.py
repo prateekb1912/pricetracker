@@ -1,1 +1,1 @@
-default_app_config = 'pricetracker.tracker.TrackerConfig'
+default_app_config = "pricetracker.tracker.TrackerConfig"
