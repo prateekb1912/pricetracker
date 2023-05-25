@@ -1,22 +1,24 @@
 services:
   web:
-    build: ./app
+    build: 
+      context: ./app
+      dockerfile: Dockerfile.prod
+    command: "gunicorn pricetracker.wsgi:application --bind 0.0.0.0:8000"
     volumes:
-      - ./app/:/usr/src/app/
+      - static_volume:/home/app/web/staticfiles
     ports:
-      - "8000:8000"
+      - 8000:8000
     env_file:
-      - ./.env.dev
+      - ./.env.prod
     depends_on:
       - db
       - rabbitmq_server
-    command: "python manage.py runserver 0.0.0.0:8000"
   
   rabbitmq_server:
     image: rabbitmq:3-management
     restart: always
     env_file:
-      - ./.env.dev
+      - ./.env.prod.celery
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
 
@@ -25,7 +27,7 @@ services:
     volumes:
       - .:/app
     env_file:
-      - ./.env.dev
+      - ./.env.prod.celery
     depends_on:
       - rabbitmq_server
       - db
@@ -36,7 +38,7 @@ services:
     volumes:
       - .:/app
     env_file:
-      - ./.env.dev
+      - ./.env.prod.celery
     depends_on:
       - rabbitmq_server
       - db
@@ -46,11 +48,20 @@ services:
     image: postgres:15.1-alpine
     volumes: 
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=patrick
-      - POSTGRES_PASSWORD=patrick19135
-      - POSTGRES_DB=pricetracker
+    env_file:
+      - ./.env.prod.db
+  
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/staticfiles
+    ports:
+      - 1337:80
+    depends_on:
+      - web
+
   
 volumes:
+    static_volume:
     postgres_data:
     rabbitmq_data:
