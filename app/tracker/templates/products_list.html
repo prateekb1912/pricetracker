@@ -1,44 +1,54 @@
-{% extends '_base.html' %}
-{% load static %}
+{% extends '_base.html' %} {% load static %}
 
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{% block title %} Products List {% endblock %}</title>
 
     {% block css %}
     <link href="{% static 'css/products_list.css' %}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/cerulean/bootstrap.min.css"
+    />
     {% endblock %}
+  </head>
 
-</head>
-
-<body>
+  <body>
     {% block content %}
     <div class="list-grid">
-        {% for product in list %}
-        <div class="list-item">
-            <div class="item-img">
-                <a href="/product/{{product.id}}"> <img src="{{product.image_url}}"> </a>
-            </div>
-            <div class="item-details">
-                <div class="item-title">
-                    <a href="/product/{{product.id}}"> {{product.title|truncatewords:20}} </a>
-                </div>
-                <div class="item-price">
-                    <span class="item-price-top">₹</span>
-                    {{product.price}}
-                </div>
-            </div>
-            <a class="item-remove-btn" href="/delete/{{product.id}}"> Delete </a>
+      {% for product in list %}
+      <div class="list-item">
+        <div class="item-img">
+          <a href="/product/{{product.id}}">
+            <img src="{{product.image_url}}" />
+          </a>
         </div>
-        {% endfor %}
+
+        <div class="item-details">
+          <div class="item-title">
+            <a href="/product/{{product.id}}">
+              {{product.title|truncatewords:20}}
+            </a>
+          </div>
+          <div class="item-price">
+            <span class="item-price-top">₹</span>
+            {{product.price}}
+          </div>
+        </div>
+        <button data-id="{{product.id}}" class="btn btn-danger" data-open-modal>
+          Delete
+        </button>
+      </div>
+      {% include "deleteModal.html" %}
+    {% endfor %}
     </div>
 
+    {% endblock %} {% block js %}
+    <script src="{% static 'js/deleteModal.js' %}"></script>
     {% endblock %}
-</body>
-
+  </body>
 </html>

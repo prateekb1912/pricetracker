@@ -1,30 +1,33 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} Index Page {% endblock %}</title>
 
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="{% static 'favicon/favicon.ico' %}"
+      type="image/x-icon"
+    />
 
-    {% block css %} 
-        <!-- Add CSS files here -->
+    {% block css %}
+    <!-- Add CSS files here -->
     {% endblock %}
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
+  </head>
 
-<body>
+  <body>
     <div id="navbar">
-        {% block navbar %}
-            <!-- Nothing to show here -->
-        {% endblock %}
+      {% block navbar %}
+      <!-- Nothing to show here -->
+      {% endblock %}
     </div>
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
-</body>
+    <div id="content">{% block content %}{% endblock %}</div>
 
+    {% block js %} {% endblock %}
+  </body>
 </html>
